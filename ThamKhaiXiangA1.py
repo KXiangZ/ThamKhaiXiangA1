@@ -4,40 +4,38 @@ This is a program taht allow for hiring or returning multiple item.
 github link:https://github.com/KXiangZ/ThamKhaiXiangA1
 """
 
-#def loading_item():
-
-
-
-
-#def hiring_item():
 
 #Welcome message
 print('Items for Hire - by Tham Khai Xiang')
-storage = ""
+storage = []
 num = 0
-input_file=open('inventory.csv','r')
-for line in input_file:
-    if num==0:
-        line1=(line.split(","))
-        num+=1
-        print(line1)
-    elif num==1:
-        line2 = (line.split(","))
-        num+=1
-        print(line2)
-    elif num==2:
-        line3 = (line.split(","))
-        num+=1
-        print(line3)
-input_file.close()
+
+def read_item():
+    input_file=open('inventory.csv','r+')
+    for data in input_file:
+        storage= data.split(',')
+        storage[-1]=storage[-1].strip()
+        print(storage)
+    input_file.close()
 
 def load_item():
-    return("All items on file(*indicates item is currently out):\n"
-           "0 -{} ({})\t= ${:.2f}\n".format(line1[0],line1[1],float(line1[2]))+
-            "1 -{} ({})\t\t= ${:.2f}\n".format(line2[0],line2[1],float(line2[2]))+
-            "2 - {}({})\t\t\t\t\t\t= ${:.2f}\n".format(line3[0],line3[1],float(line3[2])))
+    show=''
+    num=0
+    input_file = open('inventory.csv', 'r+')
+    for data in input_file:
+        storage = data.split(',')
+        storage[-1] = storage[-1].strip()
+        if storage[3]=="in":
+            storage[3]=""
+        elif storage[3]=="out":
+            storage[3]="*"
+        show+=("{} - {}({})\t\t\t\t= $ {:.2f} {}\n ".format(num,storage[0],storage[1],float(storage[2]),storage[3]))
+        num+=1
+    return (show)
 
-def hire_item():
+    input_file.close()
+#def hire_item():
+
 
 #3 items loaded from items.csv
 #user_input=input("""Menu:
