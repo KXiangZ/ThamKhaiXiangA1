@@ -23,13 +23,13 @@ def load_item():
         show+=("{:3} - {}({}){:20}= $ {:.2f} {}\n ".format(counter,storage[0],storage[1],"",float(storage[2]),storage[3]))
         counter+=1
     return (show)
-
     input_file.close()
 
 def hire_item():
     show=""
     counter = 0
     record = ""
+    hiring=""
     input_file = open('inventory.csv', 'r+')
     for data in input_file:
         storage = data.split(',')
@@ -39,7 +39,7 @@ def hire_item():
         elif storage[3] == "out":
             storage[3] = "*"
         if storage[3]=="":
-            show += ("{:3} - {}({}){:30}= $ {:.2f} {}\n ".format(counter, storage[0], storage[1],"", float(storage[2]), storage[3]))
+            show += ("{:3} - {}({}){:30}= $ {:.2f} \n ".format(counter, storage[0], storage[1],"", float(storage[2])))
             if record=="":
                 record+=str(counter)
             else:
@@ -47,16 +47,20 @@ def hire_item():
         counter+=1
     input_file.close()
     print(show)
-    hiring = (input("Enter the number of an item to hire\n"))
+    while hiring=="":
+        try:
+            hiring =int((input("Enter the number of an item to hire\n")))
+        except(ValueError):
+            print("Invalid item number")
     for i in record.split(','):
-        if hiring == i:
+        if hiring == int(i):
             num=0
             hired=""
             input_file = open('inventory.csv', 'r+')
             for data in input_file:
                 storage = data.split(',')
                 storage[-1] = storage[-1].strip()
-                if num ==int(hiring):
+                if num ==hiring:
                     hired=("{} hired for ${:.2f}".format(storage[0], float(storage[2])))
                 num+=1
             print(hired)
@@ -75,7 +79,7 @@ def return_item():
         elif storage[3] == "out":
             storage[3] = "*"
         if storage[3] == "*":
-            show += ("{:3} - {}({}){:30}= $ {:.2f} {}\n ".format(counter, storage[0], storage[1],"", float(storage[2]),storage[3]))
+            show += ("{:3} - {}({}){:30}= $ {:.2f} \n ".format(counter, storage[0], storage[1],"", float(storage[2])))
             if record == "":
                 record += str(counter)
             else:
@@ -83,9 +87,14 @@ def return_item():
         counter += 1
     input_file.close()
     print(show)
-    reitem = (input("Enter the number of an item to return\n"))
+    while reitem == "":
+        try:
+            reitem = (input("Enter the number of an item to return\n"))
+        except(ValueError):
+            print("Invalid item number")
+
     for i in record.split(','):
-        if reitem == i:
+        if reitem == int(i):
             num = 0
             ret = ""
             input_file = open('inventory.csv', 'r+')
@@ -101,7 +110,7 @@ def return_item():
 def add_item():
     name_input=input("Item name: ")
     description_input=input("Description: ")
-    price_input=input("Price per day: ")
+    price_input=input("Price per day: $")
     input_file = open('inventory.csv', 'a+')
     input_file.write("\n{},{},{},in".format(name_input,description_input,price_input))
     print("{}({}),${} now available for hire".format(name_input,description_input,price_input))
@@ -113,4 +122,4 @@ def add_item():
 #(R)eturn an item
 #(A)dd new item to stock
 #(Q)uit""")
-print (load_item())
+print (hire_item())
