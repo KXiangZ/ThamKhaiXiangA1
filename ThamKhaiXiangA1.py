@@ -4,11 +4,6 @@ This is a program taht allow for hiring or returning multiple item.
 github link:https://github.com/KXiangZ/ThamKhaiXiangA1
 """
 
-
-#Welcome message
-print('Items for Hire - by Tham Khai Xiang')
-
-
 def load_item():
     show = ''
     counter = 0
@@ -70,6 +65,7 @@ def return_item():
     show = ""
     counter = 0
     record = ""
+    reitem=""
     input_file = open('inventory.csv', 'r+')
     for data in input_file:
         storage = data.split(',')
@@ -115,11 +111,57 @@ def add_item():
     input_file.write("\n{},{},{},in".format(name_input,description_input,price_input))
     print("{}({}),${} now available for hire".format(name_input,description_input,price_input))
     input_file.close()
-#3 items loaded from items.csv
-#user_input=input("""Menu:
-#(L)ist all items
-#(H)ire an item
-#(R)eturn an item
-#(A)dd new item to stock
-#(Q)uit""")
-print (hire_item())
+#Welcome message
+print("""Items for Hire - by Tham Khai Xiang
+3 items loaded from items.csv""")
+user_input=input("""Menu:
+(L)ist all items
+(H)ire an item
+(R)eturn an item
+(A)dd new item to stock
+(Q)uit\n""").lower()
+while True:
+    while user_input=="l" or user_input=="h" or user_input=="r" or user_input=="a" or user_input=="q":
+        if user_input=="l":
+            print(load_item())
+            user_input = input("""Menu:
+        (L)ist all items
+        (H)ire an item
+        (R)eturn an item
+        (A)dd new item to stock
+        (Q)uit\n""").lower()
+        elif user_input=="h":
+            print(hire_item())
+            user_input = input("""Menu:
+            (L)ist all items
+            (H)ire an item
+            (R)eturn an item
+            (A)dd new item to stock
+            (Q)uit\n""").lower()
+        elif user_input=="r":
+            print(return_item())
+            user_input = input("""Menu:
+            (L)ist all items
+            (H)ire an item
+            (R)eturn an item
+            (A)dd new item to stock
+            (Q)uit\n""").lower()
+        elif user_input=="a":
+            print(add_item())
+            user_input = input("""Menu:
+            (L)ist all items
+            (H)ire an item
+            (R)eturn an item
+            (A)dd new item to stock
+            (Q)uit\n""").lower()
+        elif user_input=="q":
+            quit()
+
+    while user_input!="l" and user_input!="h" and user_input!="r" and user_input!="a" and user_input!="q":
+        print("Invalid menu choice")
+        user_input = input("""Menu:
+            (L)ist all items
+            (H)ire an item
+            (R)eturn an item
+            (A)dd new item to stock
+            (Q)uit\n""").lower()
