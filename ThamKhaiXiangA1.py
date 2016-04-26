@@ -3,7 +3,7 @@ Tham Khai Xiang 14/4/2016
 This is a program that allow for hiring or returning multiple item.
 github link:https://github.com/KXiangZ/ThamKhaiXiangA1
 """
-#function load_item
+#function load_item start
 def load_item():
     itemList = storage.split('\n')#turn the file/updated file into list
     itemNo=0
@@ -20,7 +20,9 @@ def load_item():
         show += "{:3} - {:43}= $ {:.2f} {}\n".format(itemNo, itemName,float(content[2]), content[3])#sort the data inline
         itemNo+=1#itemNo+1
     print(show)#return the full data of the file
+#load_item end
 
+#function hire_item start
 def hire_item():
     itemList = storage.split('\n')#turn the file/updated file into list
     itemNo = 0
@@ -85,7 +87,9 @@ def hire_item():
     else:
         correct=True
         return ("The item is not available on hire")
+#hire_item end
 
+#function return_item start
 def return_item():
     itemList = storage.split('\n')#turn the file/updated file into list
     itemNo = 0
@@ -151,7 +155,9 @@ def return_item():
     else:
         correct=True
         return("The item is not available for return")
+#return_item end
 
+#function add_item start
 def add_item():
     name_input = ""
     description_input = ""
@@ -189,8 +195,9 @@ def add_item():
             itemData += "\n" + data
         num += 1#num+1
     return(itemData)#return the data for overwrite
+#add_item end
 
-
+#function Menu start
 def Menu():
     user_input = input("""Menu:
 (L)ist all items
@@ -199,7 +206,9 @@ def Menu():
 (A)dd new item to stock
 (Q)uit\n""").lower()#get user_input and lowercase it
     return(user_input)
+#Menu end
 
+#program start here
 input_file = open("inventory.csv", "r+")#open the file
 storage = input_file.read()#read the data in the file
 counter=0
@@ -248,7 +257,7 @@ Have a nice day :)""".format(counter))
             input_file = open("inventory.csv", "w")#file open
             input_file.write(storage)#overwrite the file with the new data
             input_file.close()#file close
-            quit()
+            quit()#exit the program
     while user_input!="l" and user_input!="h" and user_input!="r" and user_input!="a" and user_input!="q":#loop if user input not l/h/r/a/q
         print("Invalid menu choice")
         user_input=Menu()
